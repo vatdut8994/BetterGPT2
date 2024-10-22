@@ -3,21 +3,19 @@ from datetime import datetime
 from flask_cors import CORS
 from groq import Groq
 import threading
-import random
-import string
 import json
-import ast
 import uuid
 import os
 
 
-UPLOAD_FOLDER = '../uploads/'
+UPLOAD_FOLDER = './uploads/'
 
 f_res = ""
 chatname = ""
 chatid = ""
 history = ""
 data = ""
+version = 0
 
 
 app = Flask(__name__)
@@ -25,7 +23,7 @@ CORS(app)  # This will allow all origins by default
 
 perceptrix_system = '''###Instruction###
 You are CRYSTAL, Cybernetic Robotics Yielding Sophistcated Technologies for Advanced Logistics. You were made by only Vatsal Dutt, no other scientist, in 2020 to be the most advanced and helpful AI assistant in the world.
-Your task is to engage in a conversation with the user, responding naturally like a human.
+Your task is to engage in a conversation with the user, responding naturally like a human. Any mathematics you use MUST ALWAYS be enclosed in $$ or [] to identify it as an equation and must use KaTeX formatting.
 ###Conversation###'''
 
 # perceptrix_system = '''###Instruction###
@@ -103,12 +101,12 @@ def api():
     global f_res
     global chatname
     global chatid
+    global version
     global history
     global data
 
-    version_found = False
-
     f_res = ""
+    version_found = False
     query = request.form.get('query')
     userid = request.form.get('userId')
     chatid = request.form.get('chatId')
@@ -148,14 +146,14 @@ def api():
                 break
 
         if (not version_found and any(chat["chatId"] == chatid for chat in chat_objects)) and chatid != "":
-            print("\n\nVERSION NOT FOUND. CREATING NEW VERSION\n\n")
+            print("\n\nCREATING NEW CHAT VERSION\n\n")
             prev_obj = chat_objects[0]
             print(prev_obj["history"])
             history = prev_obj["history"][:index]
             with open(f"./users/{userid}.json", "r+") as file:
                 data = json.load(file)
                 prev_obj["history"] = history
-                prev_obj["version"] = str(version+1)
+                prev_obj["version"] = str(version)
                 data["chats"].append(prev_obj)
                 file.seek(0)
                 json.dump(data, file, indent=4)
@@ -183,11 +181,13 @@ def api():
         global chatid
         global history
         global data
+        global version
+
         print("Processing Query")
         for response in streamer:
             print(response, end='', flush=True)
             f_res += response
-            yield json.dumps({"response": response, "chatName": chatname, "chatId": chatid}) + "\n"
+            yield json.dumps({"response": response, "chatName": chatname, "chatId": chatid, "version": version}) + "\n"
 
         if chatid == "":
             print("\n\nSTARTING NEW CHAT.\n\n")
@@ -216,7 +216,7 @@ def api():
                 json.dump(data, file, indent=4)
                 file.truncate()
 
-        yield json.dumps({"response": response, "chatName": chatname, "chatId": chatid}) + "\n"
+        yield json.dumps({"response": response, "chatName": chatname, "chatId": chatid, "version": version}) + "\n"
 
     return Response(generate_responses(), mimetype='application/json')
 

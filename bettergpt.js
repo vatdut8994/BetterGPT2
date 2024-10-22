@@ -343,6 +343,21 @@ function removeFile(file, filePreviewElement) {
     filePreviewElement.remove();
 }
 
+function editChat(modifiy_index){
+    chat_objects = all_chat_data.filter(chat => chat.chatId === chatId)
+    chat_version = Math.max(...chat_objects.map(list_chat => parseInt(list_chat.version)))
+    const history = prev_obj.history.slice(0, modifiy_index)
+
+    const new_chat = {
+        chatId: chatId,
+        chatName: chat_objects[0].chatName,
+        history: history,
+        lastmodified: new Date().toISOString(),
+        version: version,
+    }
+    all_chat_data.push(new_chat)
+}
+
 
 let titles = ['Write an essay', 'Generate an Image', 'Research and Find', 'Analyze this picture', 'Navigate my files'];
 let descriptions = ['about the effects of global warming, include 3 causes and how it can be prevented', 'of an old civilization depicting the initial stage of human evolution', 'the events that led up to the American Revolution and cite the sources in MLA format', 'and follow the instructions in assignment.docx to create a summary of the key points', 'and find the presentation.pptx to submit on Canvas'];
@@ -426,11 +441,11 @@ function gohome() {
 
     conversation.innerHTML = `
 <div class="intro">
-    <p class="description">Ya'll welcome to BetterGPT, powered by CRYSTAL! Upload pics, docs, videos, code;
-        generate pics, docs, videos, code; get access to realtime info. ChatGPT won't do half this stuff for
-        free. Sorry if there are bugs - I'm the only guy maintaining this thing on my broke-ass home
-        computer. I'm working on scaling it up, but it's a slow process. If you find any issues, hit me up
-        on Snap we're all homies here.</p>
+    <p class="description">Welcome to BetterGPT, powered by CRYSTAL! Upload pics, docs, videos, code;
+                    generate pics, docs, videos, code; get access to realtime info. ChatGPT won't do half this stuff for
+                    free, so here are all its paid features but all for free. Sorry if there are bugs - I'm the only guy
+                    maintaining this thing on my broke-ass home computer. I'm working on scaling it up, but it's a slow
+                    process. If you find any issues, hit me up on Snap we're all homies here.</p>
 
     <div class="examples">
 
@@ -470,6 +485,7 @@ newChatButton.addEventListener('click', async () => {
     conversation.style.overflowY = "hidden";
     // Show intro div
     introDiv.style.display = 'flex';
+    pagetitle.innerHTML = "<p>BetterGPT</p>";
 
     // Reset and show all starting animations
     const elementsToShow = [
@@ -485,8 +501,6 @@ newChatButton.addEventListener('click', async () => {
         void element.offsetWidth; // Trigger reflow
         element.classList.add('show');
     });
-
-    pagetitle.innerHTML = "<p>BetterGPT</p>";
 
 
     setTimeout(() => {
@@ -725,9 +739,9 @@ function addUserMessage(message) {
     const userMessageDiv = document.createElement("div");
     userMessageDiv.classList.add("message-container");
     const userImage = document.createElement("img");
-    userImage.src = "img/pfpcool.png"; // Replace with the actual path to the user avatar image
+    userImage.src = "img/pfp.png"; // Replace with the actual path to the user avatar image
     userImage.alt = "User:";
-    userImage.classList.add("avatar");
+    userImage.classList.add("avatar", "userpfp");
 
     const messageContentDiv = document.createElement("div");
     messageContentDiv.classList.add("message", "user");
@@ -1039,6 +1053,11 @@ function processNewCodeBlocks() {
     document.querySelectorAll('pre > code:not(.processed)').forEach((block) => {
         highlightAndAddCopyButton(block);
         block.classList.add('processed');
+    });
+    document.querySelectorAll('p:not(.processed)').forEach((paragraph) => {
+        console.log("P:", paragraph.textContent);
+        renderMathInElement(paragraph, {delimiters: [{left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false}]});
+        paragraph.classList.add('processed');
     });
 }
 

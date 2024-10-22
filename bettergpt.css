@@ -192,7 +192,7 @@ body {
     background-color: rgb(208, 208, 208);
     display: flex;
     color: rgb(0, 0, 0);
-    font-size: 14px;
+    font-size: medium;
     border-radius: 15px;
     transition: none;
 }
@@ -221,7 +221,7 @@ body {
     background-color: #232323;
     border-radius: 15px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 14px;
+    font-size: medium;
     align-items: center;
     color: white;
     /* border-top-left-radius: 0;
@@ -262,12 +262,13 @@ body {
     display: flex;
     flex-direction: column;
     width: 95%;
-    height: 50%;
+    height: 60vh;
     margin: 0 2%;
     margin-top: 25%;
     transform: translateY(50px);
     opacity: 0;
     transition: opacity 1.5s ease-out, transform 1s ease-out;
+    overflow: hidden;
 }
 
 .title {
@@ -285,10 +286,17 @@ body {
     overflow-x: hidden;
     color: rgb(167, 167, 167);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-y: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+.selectchat::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
 }
 
 .selectchat li {
-    font-size: 14px;
+    font-size: medium;
     padding: 8px 10px;
     color: rgb(225, 225, 225);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -351,7 +359,7 @@ body {
     margin-top: 20px;
     justify-content: space-between;
     overflow: hidden;
-    width: 35vw;
+    width: 40vw;
     transform: translateY(100px);
     opacity: 0;
     transition: height 0.5s ease, opacity 1.5s ease-out, transform 1s ease-out;
@@ -360,7 +368,7 @@ body {
 .example {
     background-color: rgb(29, 29, 29);
     padding: 30px 20px;
-    width: 25%;
+    width: 200px;
     border-radius: 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
@@ -386,7 +394,7 @@ body {
 
 .exdes {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 14px;
+    font-size: medium;
     margin: 0;
     color: rgb(198, 198, 198);
     margin-bottom: auto;
@@ -421,7 +429,7 @@ body {
 
 .time {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 10px;
+    font-size: small;
     color: rgb(135, 135, 135);
     margin: 0;
 }
@@ -439,7 +447,7 @@ body {
 }
 
 .account img {
-    width: 17%;
+    width: 50px;
     border-radius: 200px;
     margin-right: 10px;
 }
@@ -453,7 +461,7 @@ body {
     cursor: pointer;
     width: 100%;
     color: rgb(226, 226, 226);
-    font-size: 14px;
+    font-size: medium;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 10px 10px;
     margin: 5px 0;
@@ -477,7 +485,7 @@ body {
 
 .acc-description {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 10px;
+    font-size: small;
     color: rgb(142, 142, 142);
     margin: 0;
     padding: 0;
@@ -527,13 +535,19 @@ body {
     display: flex;
     align-items: center;
     color: white;
-    font-size: 16px;
+    font-size: medium;
     resize: none;
     columns: unset;
     transition: height 0.2s;
     height: 20px;
     max-height: 150px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+.query-input::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
 }
 
 textarea:focus {
@@ -669,9 +683,11 @@ textarea:focus {
     transition: background 0.5s;
 }
 
-/* .user {
-    background-color: rgb(23, 23, 23);
-} */
+.userpfp {
+    width: 50px;
+    height: 50px;
+    margin-top: 35px;
+}
 
 .bot {
     /* background-color: rgb(36, 36, 36); */
@@ -716,7 +732,7 @@ code {
 
 .hljs {
     border-radius: 10px;
-    font-size: 14px;
+    font-size: medium;
     background: rgb(25, 25, 25);
     width: 80%;
     border-top-left-radius: 0;
@@ -760,7 +776,7 @@ code {
     background-color: rgb(57, 57, 57);
     padding: 5px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: medium;
 
 }
 
@@ -994,4 +1010,33 @@ ol li::marker {
     color: rgb(172, 172, 172);
     position: absolute;
     bottom: 0px;
+}
+
+.tool{
+    background-color: rgba(27, 27, 27, 0);
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    transition: 0.1s;
+    cursor: pointer;
+    width: 90%;
+    color: rgb(226, 226, 226);
+    font-size: medium;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 10px 20px;
+    margin: 5px 0;
+    transition: background-color 0.5s ease;
+}
+
+.tool p{
+    margin: auto 15px;
+}
+
+.tool:hover{
+    background-color: #2b2b2b;
+}
+
+.tool img{
+    width: 20px;
+    filter: invert(100%) brightness(200%);
 }
