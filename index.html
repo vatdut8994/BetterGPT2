@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - Vatsal Dutt</title>
+    <style>
+        .list {
+            transform: translateY(0);
+            /* initial position */
+            transition: transform 0.3s;
+            /* animate the position change */
+        }
+
+        .list.slide-down {
+            transform: translateY(30px);
+            /* slide down by the height of the new element */
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="list">
+        <!-- Add the new element here -->
+        <li class="new-element">New element</li>
+        <li>Existing element 1</li>
+        <li>Existing element 2</li>
+    </ul>
+    <script>
+        const list = document.querySelector('.list');
+        const newElement = document.createElement('li');
+        newElement.textContent = 'New element';
+        newElement.classList.add('new-element');
+
+        list.insertBefore(newElement, list.children[0]);
+
+        // Add the class to trigger the animation
+        list.classList.add('slide-down');
+
+        // Remove the class after the animation is complete
+        setTimeout(() => {
+            list.classList.remove('slide-down');
+        }, 300); // adjust the timeout to match the animation duration
+
+    </script>
+</body>
+
+</html>

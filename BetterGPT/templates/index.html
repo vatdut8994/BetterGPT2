@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>BetterGPT</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='favicon.ico') }}" style="border-radius: 3px;">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css') }}">
+    <meta meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+
+<body>
+    <div id="loading-screen">
+        <img id="logo" src="{{ url_for('static', filename='BetterGPT Logo.png') }}" alt="BetterGPT Logo">
+        <div id="logo-text">
+            <h1>BetterGPT</h1>
+            <p class="description">Powered by CRYSTAL</p>
+        </div>
+        <p style="position: absolute; bottom: 50px;">By Vatsal Dutt</p>
+    </div>
+
+    <div id="main-content">
+        <div id="sliders" class="sidebar">
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="temperature-slider">Temperature:</label>
+                    <span id="temperature-value">0.9</span>
+                </div>
+                <input type="range" id="temperature-slider" min="0" max="1" step="0.01" value="0.9">
+            </div>
+
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="top-p-slider">Top p:</label>
+                    <span id="top-p-value">0.95</span>
+                </div>
+                <input type="range" id="top-p-slider" min="0" max="1" step="0.01" value="0.95">
+            </div>
+
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="top-k-slider">Top k:</label>
+                    <span id="top-k-value">35</span>
+                </div>
+                <input type="range" id="top-k-slider" min="0" max="512" step="1" value="35">
+            </div>
+
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="repeat-penalty-slider">Repeat Penalty:</label>
+                    <span id="repeat-penalty-value">1.0</span>
+                </div>
+                <input type="range" id="repeat-penalty-slider" min="0" max="2" step="0.01" value="1.0">
+            </div>
+
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="max-tokens-slider">Max tokens:</label>
+                    <span id="max-tokens-value">1024</span>
+                </div>
+                <input type="range" id="max-tokens-slider" min="1" max="2048" step="1" value="1024">
+            </div>
+
+            <div class="slider-container">
+                <div class="slider-info">
+                    <label for="max-history-slider">Max history messages:</label>
+                    <span id="max-history-value">5</span>
+                </div>
+                <input type="range" id="max-history-slider" min="1" max="20" step="1" value="5">
+            </div>
+        </div>
+        <div id="centered-content">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Hamburger_icon_white.svg/1200px-Hamburger_icon_white.svg.png" alt="" class="hamburger">
+            <div id="main">
+                <h1>BetterGPT</h1>
+                <p class="description">A powerful language model based on Perceptrix&#8482; by CRYSTAL Technologies Inc.</p>
+            </div>
+            <div id="conversation">
+            </div>
+            <!-- <form id="query-form" action="process-query" method="POST"> -->
+                <div class="query-container">
+                    <textarea class="query-input" name="query-input" placeholder="Enter your query" rows="1"></textarea>
+                    <button class="send-button"><img class="status-image" src="{{ url_for('static', filename='Send Icon.png') }}" alt="Send"></button>
+                </div>
+            <!-- </form> -->
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"></script>
+    <script src="{{ url_for('static',filename='script.js') }}"></script>
+</body>
+
+</html>

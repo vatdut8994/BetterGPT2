@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/default.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/stackoverflow-dark.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="bettergpt.css">
+    <link rel="icon" href="./img/favicon.png" type="image/png" sizes="64x64">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css">
+    <title>BetterGPT</title>
+</head>
+
+<body>
+    <div class="sidebar">
+        <button class="logo">
+            <img src="./img/hamburger.png" alt="CRYSTAL Logo">
+            <p onclick="window.location.href='home.html'" id="filled-text">CRYSTAL</p>
+        </button>
+        <div class="sidebarcontent">
+            <div class="chatbuttons">
+
+                <!-- <img src="img/plus.png" alt="Plus Icon"> -->
+                <button class="newchat gradient">
+                    <p>New Chat</p>
+                </button>
+
+                <button class="privatechat gradient">
+                    <p>Private Chat</p>
+                </button>
+            </div>
+
+            <div class="chats">
+                <p class="title">Chat History</p>
+                <ul class="selectchat">
+                    <li>
+                        <div class="chat-info">
+                            <p class="chatname">Lorem, ipsum dolor adipisicing</p>
+                            <p class="time">43m</p>
+                        </div>
+                        <img src="img/3dot.png" alt="3 dots">
+                    </li>
+                    <li>
+                        <div class="chat-info">
+                            <p class="chatname">Sit amet consectetur</p>
+                            <p class="time">2d</p>
+                        </div>
+                        <img src="img/3dot.png" alt="3 dots">
+                    </li>
+                    <li>
+                        <div class="chat-info">
+                            <p class="chatname">Elit. Amet, voluptas.</p>
+                            <p class="time">3w</p>
+                        </div>
+                        <img src="img/3dot.png" alt="3 dots">
+                    </li>
+                </ul>
+            </div>
+            <div class="tools">
+                <div class="account"><img src="./img/pfpcool.png" alt="PFP">
+                    <div class="name">
+                        <p class="acc-description">Account</p>
+                        <p>Adolph Hytler</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mainbody">
+        <div id="drop-area">
+            <p>Drag and drop files here</p>
+        </div>
+        <div class="pagetitle">
+            <p>BetterGPT</p>
+        </div>
+        <div class="conversation">
+            <div class="intro">
+                <p class="description">Ya'll welcome to BetterGPT, powered by CRYSTAL! Upload pics, docs, videos, code;
+                    generate pics, docs, videos, code; get access to realtime info. ChatGPT won't do half this stuff for
+                    free. Sorry if there are bugs - I'm the only guy maintaining this thing on my broke-ass home
+                    computer. I'm working on scaling it up, but it's a slow process. If you find any issues, hit me up
+                    on Snap we're all homies here.</p>
+
+                <div class="examples">
+
+                    <div class="example gradient">
+                        <p class="exname">Example 1</p>
+                        <p class="exdes">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse, temporibus.</p>
+                        <img src="" alt="" class="icon">
+                    </div>
+                    <div class="example gradient">
+                        <p class="exname">Example 2</p>
+                        <p class="exdes">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse, temporibus.</p>
+                        <img src="" alt="" class="icon">
+                    </div>
+                    <div class="example gradient">
+                        <p class="exname">Example 3</p>
+                        <p class="exdes">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse, temporibus.</p>
+                        <img src="" alt="" class="icon" style="filter: tint(red);">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="query-container gradient">
+            <button class="attachment"><img src="./img/attachment.png" alt="attachment"></button>
+            <div class="query-inputs-container">
+                <div class="uploaded-files"></div>
+                <textarea class="query-input" name="query-input" placeholder="Enter your query" rows="1"></textarea>
+            </div>
+            <div class="send-container">
+                <button class="send-button" disabled="true">
+                    <img class="status-image" src="./img/Send Icon.png" alt="Send"></button>
+            </div>
+        </div>
+        <p class="notice">Limited Beta release for experimental research.</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="bettergpt.js"></script>
+</body>
+
+</html>

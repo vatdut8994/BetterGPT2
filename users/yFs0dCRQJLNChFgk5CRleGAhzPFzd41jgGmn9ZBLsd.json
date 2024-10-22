@@ -1,0 +1,92 @@
+{
+    "chats": [
+        {
+            "chatId": "m2cov8y6252887z0hgy",
+            "chatName": "introduction to crystal bot",
+            "version": "0",
+            "lastmodified": "2024-10-18 22:43:57.326554",
+            "history": [
+                [
+                    "Hello",
+                    "**Hello there!** I'm CRYSTAL, nice to meet you. How may I assist you today?"
+                ],
+                [
+                    "how are you",
+                    "Great! How about yourself?"
+                ],
+                [
+                    "pretty chill",
+                    "Good to hear! What are you doing today?"
+                ],
+                [
+                    "Nothing much, just doing stuff around the house",
+                    "Haha it's always nice to do a little housekeeping every now and then. What are you up to?"
+                ]
+            ]
+        },
+        {
+            "chatId": "m2cov8y6252887z0hgy",
+            "chatName": "introduction to crystal bot",
+            "version": "1",
+            "lastmodified": "2024-12-17 22:43:57.326554",
+            "history": [
+                [
+                    "what up",
+                    "what up my boy"
+                ],
+                [
+                    "pretty good bro wbu",
+                    "ay doin just fine"
+                ],
+                [
+                    "W",
+                    "Hell yeah"
+                ],
+                [
+                    "you comin to hoco",
+                    "nah bruh i got shit to do"
+                ]
+            ]
+        },
+        {
+            "chatId": "m2cov8y6252887z0hgy",
+            "chatName": "introduction to crystal bot",
+            "version": 2,
+            "lastmodified": "2024-10-17 22:43:16.543316",
+            "history": [
+                [
+                    "what up",
+                    "what up my boy"
+                ],
+                [
+                    "pretty good bro wbu",
+                    "ay doin just fine"
+                ],
+                [
+                    "W",
+                    "Hell yeah"
+                ],
+                [
+                    "I got a date for hoco bro",
+                    "Ayyy let's goooo"
+                ]
+            ]
+        },
+        {
+            "chatId": "m2cov8y6252887z0hgy",
+            "chatName": "introduction to crystal bot",
+            "version": 3,
+            "lastmodified": "2024-10-17 22:43:57.326554",
+            "history": [
+                [
+                    "what up",
+                    "what up my boy"
+                ],
+                [
+                    "whatcha doin",
+                    "None of your beeswax"
+                ]
+            ]
+        }
+    ]
+}
