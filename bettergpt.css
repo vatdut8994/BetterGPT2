@@ -16,7 +16,7 @@ body {
     color: rgb(216, 216, 216);
     display: flex;
     align-items: center;
-    font-size: xx-large;
+    font-size: 40px;
     text-align: center;
     margin-bottom: 40px;
     border-radius: 20px;
@@ -475,8 +475,8 @@ body {
 .name {
     display: flex;
     flex-direction: column;
-    height: 32px;
-    justify-content: space-between;
+    height: 45px;
+    justify-content: start;
 }
 
 .name p {
@@ -791,6 +791,10 @@ a {
     width: 80vw;
 }
 
+.user{
+    margin-bottom: 0;
+}
+
 .conversation {
     display: flex;
     flex-direction: column;
@@ -1039,4 +1043,38 @@ ol li::marker {
 .tool img{
     width: 20px;
     filter: invert(100%) brightness(200%);
+}
+
+.usertools{
+    display: flex;
+    padding-top: 20px;
+    opacity: 0;
+    transition: opacity 0.1s ease;
+}
+
+.user:hover .usertools {
+    opacity: 1;
+    transition: opacity 0.1s ease;
+}
+
+.usertools button{
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 7px;
+    margin-right: 5px;
+    transition: background-color 0.5s ease;
+}
+
+.usertools button:hover{
+    background-color: #2b2b2b;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.usertools button img{
+    width: 20px;
+    height: 20px;
+    filter: invert(100%) brightness(70%);
 }

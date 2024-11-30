@@ -23,11 +23,12 @@ let rotationInterval;
 let sidebargo = false;
 
 const baseUrl = 'http://127.0.0.1:7777';
+// const baseUrl = "https://bceb7f41087d-7754001953109090881.ngrok-free.app";
 let chat_version = 0;
 
 let all_chat_data = [];
 
-let chatName = "";
+let chatName = "New Chat";
 let chatId = "";
 
 
@@ -343,7 +344,7 @@ function removeFile(file, filePreviewElement) {
     filePreviewElement.remove();
 }
 
-function editChat(modifiy_index){
+function editChat(modifiy_index) {
     chat_objects = all_chat_data.filter(chat => chat.chatId === chatId)
     chat_version = Math.max(...chat_objects.map(list_chat => parseInt(list_chat.version)))
     const history = prev_obj.history.slice(0, modifiy_index)
@@ -437,7 +438,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function gohome() {
     chatId = "";
-    chatName = "";
+    chatName = "New Chat";
 
     conversation.innerHTML = `
 <div class="intro">
@@ -477,7 +478,6 @@ newChatButton.addEventListener('click', async () => {
 
     gohome();
     assignDescriptions();
-    setpagetitle();
 
     conversation.style.marginTop = "0";
     conversation.style.height = "min-content";
@@ -495,12 +495,18 @@ newChatButton.addEventListener('click', async () => {
     ];
 
 
-    elementsToShow.forEach(element => {
-        element.classList.remove('hide');
-        element.classList.remove('private');
-        void element.offsetWidth; // Trigger reflow
-        element.classList.add('show');
+    elementsToShow.forEach((element, index) => {
+        setTimeout(() => {
+            element.classList.remove('hide');
+            element.classList.remove('private');
+            void element.offsetWidth; // Trigger reflow
+            element.classList.add('show');
+        }, index * 50);
     });
+
+    setTimeout(() => {
+        setpagetitle();
+    }, 100);
 
 
     setTimeout(() => {
@@ -525,7 +531,6 @@ privatechat.addEventListener('click', async () => {
 
     gohome();
     assignDescriptions();
-    setpagetitle();
 
     conversation.style.marginTop = "0";
     conversation.style.height = "min-content";
@@ -551,6 +556,10 @@ privatechat.addEventListener('click', async () => {
         void element.offsetWidth; // Trigger reflow
         element.classList.add('show');
     });
+
+    setTimeout(() => {
+        setpagetitle();
+    }, 100);
 
 
     setTimeout(() => {
@@ -651,7 +660,7 @@ function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function finalizeReply(query, botresponse) {
+async function finalizeReply(query = "", botresponse = "") {
     processing = false;
     console.log("Stream stopped");
     sendButton.classList.remove('stop-button');
@@ -668,22 +677,24 @@ async function finalizeReply(query, botresponse) {
         scrollToBottom();
     }
 
-    const mostRecentVersion = all_chat_data
-        .filter(chat => chat.chatId === chatId)
-        .reduce((latest, current) => {
-            const latestDate = new Date(latest.lastmodified);
-            const currentDate = new Date(current.lastmodified);
-            return currentDate > latestDate ? current : latest;
-        });
+    if (query !== "") {
+        const mostRecentVersion = all_chat_data
+            .filter(chat => chat.chatId === chatId)
+            .reduce((latest, current) => {
+                const latestDate = new Date(latest.lastmodified);
+                const currentDate = new Date(current.lastmodified);
+                return currentDate > latestDate ? current : latest;
+            });
 
-    const currentChatHistory = mostRecentVersion.history;
-    currentChatHistory.push([query, botresponse]);
+        const currentChatHistory = mostRecentVersion.history;
+        currentChatHistory.push([query, botresponse]);
 
-    const chatIndex = all_chat_data.findIndex(chat => chat.chatId === chatId);
-    if (chatIndex !== -1) {
-        all_chat_data[chatIndex].history = currentChatHistory;
+        const chatIndex = all_chat_data.findIndex(chat => chat.chatId === chatId);
+        if (chatIndex !== -1) {
+            all_chat_data[chatIndex].history = currentChatHistory;
+        }
+
     }
-
     const uniqueChats = all_chat_data.filter((chat, index, self) =>
         self.findIndex((t) => t.chatId === chat.chatId) === index
     );
@@ -750,7 +761,15 @@ function addUserMessage(message) {
     querySpan.classList.add("query-text");
     querySpan.textContent = message;
 
+    const newDiv = document.createElement("div");
+    newDiv.classList.add("usertools");
+
+    const copyButton = document.createElement("button");
+    copyButton.innerHTML = '<img class="fas" src="./img/edit-icon.webp" alt="Edit"></img>';
+    newDiv.appendChild(copyButton);
+
     messageContentDiv.appendChild(querySpan);
+    messageContentDiv.appendChild(newDiv);
     userMessageDiv.appendChild(userImage);
     userMessageDiv.appendChild(messageContentDiv);
 
@@ -761,7 +780,6 @@ function addUserMessage(message) {
     conversation.style.paddingBottom = "5%";
     conversation.style.overflowY = "scroll";
 }
-
 function addBotMessage(message) {
     const botMessageDiv = document.createElement("div");
     botMessageDiv.classList.add("message-container");
@@ -778,6 +796,9 @@ function addBotMessage(message) {
     textSpan.innerHTML = marked.parse(message);
     textSpan.classList.add("bot-text");
 
+    if (textSpan.textContent.startsWith("Error connecting to server: ")) {
+        textSpan.classList.add("error")
+    }
     botMessageContentDiv.appendChild(textSpan);
     botMessageDiv.appendChild(botImage);
     botMessageDiv.appendChild(botMessageContentDiv);
@@ -974,11 +995,7 @@ sendButton.addEventListener('click', async (event) => {
                 textSpan.textContent = "Error connecting to server: " + error.message;
                 textSpan.classList.add("bot-text", "error");
 
-                const blinkingRectangle = document.createElement("div");
-                blinkingRectangle.classList.add("blinking-rectangle");
-
                 botMessageContentDiv.appendChild(textSpan);
-                botMessageContentDiv.appendChild(blinkingRectangle);
                 botMessageDiv.appendChild(botImage);
                 botMessageDiv.appendChild(botMessageContentDiv);
 
@@ -986,7 +1003,7 @@ sendButton.addEventListener('click', async (event) => {
                 finalizeReply(query, "Error connecting to server: " + error.message);
             });
     } else {
-        finalizeReply(query, full_response);
+        finalizeReply();
         abortController.abort();
     }
 });
@@ -1054,11 +1071,6 @@ function processNewCodeBlocks() {
         highlightAndAddCopyButton(block);
         block.classList.add('processed');
     });
-    document.querySelectorAll('p:not(.processed)').forEach((paragraph) => {
-        console.log("P:", paragraph.textContent);
-        renderMathInElement(paragraph, {delimiters: [{left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false}]});
-        paragraph.classList.add('processed');
-    });
 }
 
 // Initial call to process existing code blocks
@@ -1070,6 +1082,7 @@ const observer = new MutationObserver((mutations) => {
         if (mutation.type === 'childList') {
             processNewCodeBlocks();
             processBotResponseParagraphs();
+            processMathEquations();
         }
     });
 });
@@ -1082,6 +1095,15 @@ function processBotResponseParagraphs() {
             paragraph.style.fontSize = '1.3em';
             paragraph.style.margin = "10px 0";
         }
+    });
+}
+
+function processMathEquations() {
+    const mathElements = document.querySelectorAll('.bot-text p:not(.processedmath)');
+    mathElements.forEach((paragraph) => {
+        console.log("P:", paragraph.textContent);
+        renderMathInElement(paragraph, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }] });
+        paragraph.classList.add('processedmath');
     });
 }
 
